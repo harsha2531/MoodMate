@@ -1,6 +1,11 @@
-export type Entry = {
+// export type Entry = {
+//     id: string;
+//     date: string;
+//     mood: string;
+//     note: string;
+// };
+export type MoodEntry = {
     id: string;
-    date: string;
     mood: string;
-    note: string;
+    date: string;
 };
