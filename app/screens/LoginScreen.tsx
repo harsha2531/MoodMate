@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, Text, StyleSheet } from "react-native";
+import { View, Text, TextInput, Button, Alert } from "react-native";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../services/config/firebase";
 
@@ -11,37 +11,45 @@ export default function LoginScreen({ navigation }: any) {
         try {
             await signInWithEmailAndPassword(auth, email, password);
         } catch (error: any) {
-            alert(error.message);
+            Alert.alert("Login Failed", error.message);
         }
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>MoodMate Login</Text>
+        <View style={{ flex: 1, padding: 20, justifyContent: "center" }}>
+            <Text style={{ fontSize: 22, fontWeight: "bold", marginBottom: 20 }}>Login</Text>
             <TextInput
                 placeholder="Email"
-                style={styles.input}
                 value={email}
                 onChangeText={setEmail}
+                style={{
+                    borderWidth: 1,
+                    borderColor: "#ccc",
+                    borderRadius: 8,
+                    padding: 10,
+                    marginBottom: 15,
+                }}
             />
             <TextInput
                 placeholder="Password"
-                style={styles.input}
                 secureTextEntry
                 value={password}
                 onChangeText={setPassword}
+                style={{
+                    borderWidth: 1,
+                    borderColor: "#ccc",
+                    borderRadius: 8,
+                    padding: 10,
+                    marginBottom: 15,
+                }}
             />
             <Button title="Login" onPress={handleLogin} />
-            <Text style={styles.link} onPress={() => navigation.navigate("Register")}>
-                Don’t have an account? Register
+            <Text
+                style={{ marginTop: 15, color: "blue", textAlign: "center" }}
+                onPress={() => navigation.navigate("Register")}
+            >
+                Don't have an account? Register
             </Text>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: { flex: 1, justifyContent: "center", padding: 20 },
-    title: { fontSize: 24, marginBottom: 20, textAlign: "center" },
-    input: { borderWidth: 1, marginBottom: 12, padding: 10, borderRadius: 8 },
-    link: { marginTop: 20, color: "blue", textAlign: "center" },
-});
